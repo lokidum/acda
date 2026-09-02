@@ -1,0 +1,16 @@
+# Old Adelaide Driver Training Academy SA paths -> new structure
+# Same map as vercel.json. Keep them in sync via build.py.
+
+/cbta-training-and-assessment              /services/cbta-logbook-training/             301
+/cbta-training-and-assessment/             /services/cbta-logbook-training/             301
+/vort-exam-training                        /services/vort-test-preparation/             301
+/vort-exam-training/                       /services/vort-test-preparation/             301
+/about-us                                  /about/                                      301
+/about-us/                                 /about/                                      301
+/contact-us                                /contact/                                    301
+/contact-us/                               /contact/                                    301
+/services                                  /services/                                   301
+/book                                      /contact/                                    301
+/booking                                   /contact/                                    301
+/prices                                    /pricing/                                    301
+/testimonials                              /reviews/                                    301
