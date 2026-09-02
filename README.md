@@ -127,7 +127,7 @@ SVG.
 
 ### Redirecting the old domain
 
-`adelaidedrivertrainingacademysa.com.au` has been indexed since 1990 and holds
+`adelaidedrivertrainingacademysa.com.au` has been indexed since 2006 and holds
 whatever authority the business has built. Do not let it 404.
 
 1. Keep the old domain registered and pointed somewhere you control.

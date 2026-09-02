@@ -165,7 +165,7 @@ def ld_person():
                        "Vehicle On Road Test (VORT)",
                        "Overseas driver licence conversion in South Australia",
                        "Learner driver instruction", "Automobile engineering"],
-        "description": ("Driving instructor in South Australia since 1990 with a background "
+        "description": ("Driving instructor in South Australia since 2006 with a background "
                         "in automobile engineering. Known for calm, patient one-to-one "
                         "instruction."),
     }
@@ -644,14 +644,14 @@ def page_home():
         %(badge)s
         <h1>Drive with certainty. <em>Pass with confidence.</em></h1>
         <p class="lede">One-to-one driving lessons across Adelaide with Gopi, teaching South
-        Australians since 1990. CBT&amp;A logbook training, VORT test preparation and overseas
+        Australians since 2006. CBT&amp;A logbook training, VORT test preparation and overseas
         licence conversion, taught calmly and at the pace you actually need.</p>
         <div class="btn-row">
           <a class="btn btn--whatsapp pulse" href="#book">%(wa_icon)s Instant WhatsApp booking</a>
           <a class="btn btn--ghost" href="tel:%(tel)s">%(ic_phone)s Call %(phone)s</a>
         </div>
         <div class="microstats">
-          <div><b><span data-count="30" data-suffix="+">30+</span></b><span>Years instructing</span></div>
+          <div><b><span data-count="20" data-suffix="+">20+</span></b><span>Years instructing</span></div>
           <div><b><span data-count="5.0">5.0</span></b><span>Google rating</span></div>
           <div><b><span data-count="72" data-suffix="+">72+</span></b><span>Five star reviews</span></div>
           <div><b>1:1</b><span>Every single lesson</span></div>
@@ -681,8 +681,8 @@ def page_home():
       %(photos)s
       <div>
         <p class="eyebrow">Meet your instructor</p>
-        <h2>Gopi has been teaching Adelaide to drive since 1990</h2>
-        <p class="lede">Read the reviews and one word keeps coming back: patient. Thirty years
+        <h2>Gopi has been teaching Adelaide to drive since 2006</h2>
+        <p class="lede">Read the reviews and one word keeps coming back: patient. Twenty years
         in, with a background in automobile engineering, Gopi has seen every mistake a learner
         can make. None of them are worth raising a voice over.</p>
         <ul class="cred-list">%(creds)s</ul>
@@ -753,7 +753,7 @@ def page_home():
     return head({
         "path": path,
         "title": "Driving Lessons Adelaide | Rated 5.0 by 72 Students",
-        "meta": "One-to-one driving lessons across Adelaide with Gopi, instructing since 1990. CBT&A, VORT prep and overseas licence conversion. 5.0 stars, 72 reviews.",
+        "meta": "One-to-one driving lessons across Adelaide with Gopi, instructing since 2006. CBT&A, VORT prep and overseas licence conversion. 5.0 stars, 72 reviews.",
         "schema": schema,
     }) + body
 
@@ -995,15 +995,15 @@ def page_about():
                "photos": instructor_photos(), "bio": bio, "creds": creds, "wa_icon": WA_SVG,
                "wa": e(wa_link("Hi Gopi, I read your about page and I'd like to ask about "
                                "driving lessons.")),
-               "cta": cta_band("Thirty years of experience, one lesson at a time",
+               "cta": cta_band("Twenty years of experience, one lesson at a time",
                                "Book a single lesson and see how it goes. No packages, no "
                                "pressure, no commitment beyond the first hour and a half."),
                "foot": footer()}
 
     return head({
         "path": path,
-        "title": "About Gopi | Adelaide Driving Instructor Since 1990",
-        "meta": "Gopi has taught South Australians to drive since 1990. Patient, one-to-one instruction across Adelaide. 5.0 stars from 72 Google reviews.",
+        "title": "About Gopi | Adelaide Driving Instructor Since 2006",
+        "meta": "Gopi has taught South Australians to drive since 2006. Patient, one-to-one instruction across Adelaide. 5.0 stars from 72 Google reviews.",
         "og_type": "profile", "schema": schema}) + body
 
 

@@ -34,7 +34,7 @@ REVIEW_COUNT = 72
 GOOGLE_PROFILE = "https://share.google/oz1qiCDrlBlNMlHzZ"
 GOOGLE_KG = "https://www.google.com/search?kgmid=/g/11vqnhx90x"
 
-FOUNDED = "1990"
+FOUNDED = "2006"
 HOURS_TEXT = "Monday to Sunday, closes 8:00pm"
 
 REGION = "South Australia"
@@ -340,7 +340,7 @@ SERVICES = [
              "Every manoeuvre gets broken down and talked through before you are asked to do "
              "it. Reviewers mention this specifically and often."),
             ("No shouting, no sighing",
-             "Thirty years in and Gopi has seen every mistake there is. None of them are "
+             "Twenty years in and Gopi has seen every mistake there is. None of them are "
              "worth raising your voice over."),
             ("Your pace, not a schedule",
              "If a lesson needs to be spent on one intersection until it stops being scary, "
@@ -583,10 +583,10 @@ FAQS = [
 # ---------------------------------------------------------------------------
 
 INSTRUCTOR_BIO = [
-    "Gopi has been teaching people to drive in South Australia since 1990. Before that, and "
+    "Gopi has been teaching people to drive in South Australia since 2006. Before that, and "
     "alongside it, his background is in automobile engineering, which is a longer way of "
     "saying he understands what the car is doing as well as what the driver is doing.",
-    "Over three decades that adds up to a lot of learners. Nervous seventeen year olds. "
+    "Over two decades that adds up to a lot of learners. Nervous seventeen year olds. "
     "Overseas drivers with twenty years of experience in a different road system. People "
     "coming back after a decade off. Someone doing her lessons in the ninth month of "
     "pregnancy. The approach does not change much between them: work out where the person "
@@ -602,7 +602,7 @@ INSTRUCTOR_BIO = [
 ]
 
 CREDENTIALS = [
-    ("Teaching since 1990", "More than 30 years of driver training in South Australia."),
+    ("Teaching since 2006", "20 years of driver training in South Australia."),
     ("Automobile engineering background", "A mechanical understanding of the vehicle, not "
      "just the road rules."),
     ("Authorised Examiner for CBT&A", "Able to assess and sign off the 30 competency tasks "
