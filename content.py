@@ -78,7 +78,7 @@ AREAS = [
         "blurb": "Wide arterials, high speed limits and long merges. Good ground for "
                  "building confidence early, and for practising the road positioning "
                  "the test actually scores.",
-        "suburbs": ["Salisbury", "Elizabeth", "Mawson Lakes", "Para Hills", "Gepps Cross",
+        "suburbs": ["Salisbury", "Salisbury East", "Mawson Lakes", "Para Hills", "Gepps Cross",
                     "Pooraka", "Ingle Farm", "Modbury", "Golden Grove", "Munno Para"],
     },
     {
@@ -94,20 +94,24 @@ AREAS = [
         "slug": "east",
         "blurb": "Hills approaches, gradients, roundabouts and some genuinely awkward "
                  "give-way geometry. Where hill starts and downhill control get sorted.",
-        "suburbs": ["Campbelltown", "Tea Tree Gully", "Magill", "Athelstone", "Paradise",
-                    "Newton", "Rostrevor", "Burnside", "Glen Osmond", "Hectorville"],
+        "suburbs": ["Campbelltown", "Tea Tree Gully", "Magill", "Paradise", "Newton",
+                    "Burnside", "Glen Osmond", "Hectorville", "Kensington", "Marryatville"],
+    },
+    {
+        "name": "Southern suburbs",
+        "slug": "south",
+        "blurb": "Anzac Highway and Marion Road carry heavy traffic most of the day, the "
+                 "tram line through Glenelg adds a layer of attention at crossings, and the "
+                 "area has more roundabouts than anywhere else Gopi teaches. Marion marks "
+                 "the southern edge of the service area.",
+        "suburbs": ["Marion", "Mitcham", "Brighton", "Glenelg", "Somerton Park", "Plympton",
+                    "Edwardstown", "Ascot Park", "Clovelly Park", "Daw Park"],
     },
 ]
 
-SOUTHERN_NOTE = (
-    "Southern suburbs including Marion, Mitcham, Morphett Vale, Brighton and Noarlunga "
-    "can be arranged on request. Send a message and Gopi will let you know what is "
-    "workable around his current schedule."
-)
-
 # Chips shown under the suburb field in the booking widget
 SUBURB_CHIPS = ["Adelaide CBD", "Salisbury", "Mawson Lakes", "Norwood",
-                "Port Adelaide", "Campbelltown", "Modbury", "Prospect"]
+                "Port Adelaide", "Campbelltown", "Marion", "Prospect"]
 
 # ---------------------------------------------------------------------------
 # Services
@@ -124,6 +128,10 @@ SERVICES = [
         "keyword": "CBT&A Adelaide",
         "icon": "logbook",
         "chip": "Most popular",
+        "plate": "yellow",
+        "marquee": ["30 competency tasks", "no pass or fail", "Authorised Examiner",
+                    "Driving Companion", "sign off as you go", "learn at your own pace",
+                    "re-train and re-assess", "logbook method", "no test-day deadline"],
         "summary": "Competency Based Training and Assessment. Your Authorised Examiner "
                    "signs off each task as you demonstrate it, so there is no pass or fail "
                    "moment at the end.",
@@ -191,8 +199,12 @@ SERVICES = [
         "keyword": "VORT test Adelaide",
         "icon": "target",
         "chip": "Test ready",
+        "plate": "red",
+        "marquee": ["five slow-speed manoeuvres", "reverse parallel park", "three point turn",
+                    "U-turn", "angle park", "90 percent pass mark", "mock test",
+                    "instant-fail list", "dual-control vehicle", "test day ready"],
         "summary": "Vehicle On Road Test drills, honest mock assessments, and test day "
-                   "bookings in your car or the instructor's.",
+                   "bookings in the instructor's dual-control vehicle.",
         "intro": [
             "The Vehicle On Road Test is the other route to a P1 provisional licence. You "
             "record 75 hours of supervised driving, then sit a single assessed drive.",
@@ -215,8 +227,8 @@ SERVICES = [
              "creeping stop line, or a lane change without a head check. You get told exactly "
              "where those live on Adelaide roads."),
             ("Test day in a car you know",
-             "Sit the test in your own roadworthy vehicle, or use Gopi's with an hour of "
-             "practice beforehand so nothing about the car is a surprise."),
+             "You sit the test in Gopi's dual-control car after an hour of practice in it "
+             "beforehand, so nothing about the vehicle is a surprise on the day."),
         ],
         "process": [
             ("Pre-VORT lesson", "A 60 minute session that finds the gaps. Usually not where "
@@ -225,8 +237,8 @@ SERVICES = [
              "worked until they are automatic rather than hopeful."),
             ("Mock test", "A full simulated assessment with a marking sheet, so the real one "
              "is a repeat rather than a first."),
-            ("Test day", "Booked in your vehicle or Gopi's, with a practice drive first if "
-             "you are using his."),
+            ("Test day", "Booked in Gopi's dual-control vehicle, with a practice drive first "
+             "so the car is never a surprise."),
         ],
         "faqs": [
             ("What happens if I fail my VORT?",
@@ -237,10 +249,12 @@ SERVICES = [
              "You need 90 percent or more across the general drive, plus successful "
              "demonstration of the five slow-speed manoeuvres, and no road law breaches. A "
              "breach terminates the test immediately regardless of how well the rest went."),
-            ("Can I use my own car for the VORT?",
-             "Yes, provided it is roadworthy and meets the requirements. Gopi will tell you "
-             "what gets checked before you turn up, because being turned away for a "
-             "mechanical issue is a miserable way to lose a booking."),
+            ("Why is the VORT done in the instructor's car?",
+             "Gopi's training vehicle has dual brake controls, which a student's personal "
+             "vehicle does not. That protects you during the test and means there is no risk "
+             "of being turned away on a roadworthiness or tyre issue on the day. You get an hour of "
+             "practice in it first, so the biting point and controls are already familiar "
+             "before the test starts."),
             ("How many lessons before I book the test?",
              "Book the mock test first. It answers the question far better than a guess does."),
         ],
@@ -256,6 +270,8 @@ SERVICES = [
         "keyword": "overseas licence conversion Adelaide",
         "icon": "globe",
         "chip": "Fast tracked",
+        "marquee": ["SA road law", "give-way rules", "roundabout signalling", "full SA licence",
+                    "experienced drivers", "head checks", "CBT&A pathway", "no beginner lessons"],
         "summary": "For experienced drivers converting an international licence. Built "
                    "around SA road law and the local habits that catch people out.",
         "intro": [
@@ -320,6 +336,9 @@ SERVICES = [
         "keyword": "nervous driver lessons Adelaide",
         "icon": "heart",
         "chip": "Anxiety friendly",
+        "marquee": ["quiet streets first", "explained before attempted", "no shouting",
+                    "your pace", "anxiety friendly", "first time behind the wheel",
+                    "patient instruction"],
         "summary": "For first-timers and anyone who has had a bad experience with an "
                    "instructor. Slow start, quiet roads, and a pace set by you.",
         "intro": [
@@ -382,6 +401,9 @@ SERVICES = [
         "keyword": "refresher driving lessons Adelaide",
         "icon": "refresh",
         "chip": "No judgement",
+        "marquee": ["back after a break", "confidence rebuilt", "no judgement",
+                    "specific problems fixed", "reverse parking", "roundabouts",
+                    "motorway merging"],
         "summary": "For licenced drivers who have been off the road, lost their nerve, or "
                    "want to sharpen up before a big drive.",
         "intro": [
@@ -455,7 +477,7 @@ PRICING = {
             {"name": "10 lesson package", "dur": "10 x 90 minutes", "price": "1700",
              "desc": "Works out cheaper than booking singles and gives you a clear run at "
                      "the full task list.", "featured": True},
-            {"name": "The final drive", "dur": "Includes pre-drive", "price": "330",
+            {"name": "The final drive", "dur": "Includes pre-drive", "price": "450",
              "desc": "Consolidation drive and completion of your paperwork.", "featured": False},
         ],
     },
@@ -475,12 +497,10 @@ PRICING = {
             {"name": "5 lesson VORT pack", "dur": "300 minutes total", "price": "525",
              "desc": "Thorough preparation with room to drill weak manoeuvres properly.",
              "featured": False},
-            {"name": "VORT test, your vehicle", "dur": "60 minutes", "price": "250",
-             "desc": "An examiner conducts your test in your own car. Vehicle must be roadworthy.",
-             "featured": False},
-            {"name": "VORT test, instructor vehicle", "dur": "120 minutes", "price": "425",
-             "desc": "An hour of practice in the instructor's car, then the examiner conducts "
-                     "your test in it.", "featured": False},
+            {"name": "VORT test, instructor vehicle", "dur": "120 minutes", "price": "450",
+             "desc": "An hour of practice in the instructor's dual-control vehicle, then the "
+                     "examiner conducts your test in it. No roadworthiness or tyre risk on the "
+                     "day.", "featured": False},
         ],
     },
 }
@@ -546,9 +566,9 @@ FAQS = [
      "if you are assessed in an automatic, your licence carries an automatic-only condition "
      "until you complete a manual assessment."),
     ("Which parts of Adelaide do you cover?",
-     "The CBD and inner suburbs, the northern suburbs, the western suburbs and the eastern "
-     "suburbs. Southern suburbs can be arranged on request depending on the schedule. Send a "
-     "message with your suburb and you will get a straight answer."),
+     "The CBD and inner suburbs, the northern suburbs, the western suburbs, the eastern "
+     "suburbs and the southern suburbs as far as Marion. Send a message with your suburb and "
+     "you will get a straight answer."),
     ("Can you pick me up from home, work or uni?",
      "Usually yes, within the service areas. Say where you need to be picked up from when you "
      "message and it gets sorted before the first lesson."),

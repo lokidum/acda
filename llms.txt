@@ -14,15 +14,14 @@
 - Hours: Monday to Sunday, closes 8:00pm
 - Rating: 5.0 from 72 Google reviews
 - Location: Adelaide, South Australia. Service area business, no shopfront.
-- Areas served: Adelaide CBD and inner suburbs, northern suburbs, western suburbs, eastern
-  suburbs. Southern suburbs by arrangement.
+- Areas served: Adelaide CBD and inner suburbs, Northern suburbs, Western suburbs, Eastern suburbs, Southern suburbs, from Salisbury in the north to Marion in the south.
 - Transmissions taught: automatic and manual
 - Booking: WhatsApp is the fastest route. There is no online payment or calendar system.
 
 ## Services
 
 - [CBT&A logbook training](https://adelaideconfidentdriving.com.au/services/cbta-logbook-training/): Competency Based Training and Assessment. Your Authorised Examiner signs off each task as you demonstrate it, so there is no pass or fail moment at the end.
-- [VORT test preparation](https://adelaideconfidentdriving.com.au/services/vort-test-preparation/): Vehicle On Road Test drills, honest mock assessments, and test day bookings in your car or the instructor's.
+- [VORT test preparation](https://adelaideconfidentdriving.com.au/services/vort-test-preparation/): Vehicle On Road Test drills, honest mock assessments, and test day bookings in the instructor's dual-control vehicle.
 - [Overseas licence conversion](https://adelaideconfidentdriving.com.au/services/overseas-licence-conversion/): For experienced drivers converting an international licence. Built around SA road law and the local habits that catch people out.
 - [Beginner and nervous drivers](https://adelaideconfidentdriving.com.au/services/beginner-driving-lessons/): For first-timers and anyone who has had a bad experience with an instructor. Slow start, quiet roads, and a pace set by you.
 - [Refresher lessons](https://adelaideconfidentdriving.com.au/services/refresher-driving-lessons/): For licenced drivers who have been off the road, lost their nerve, or want to sharpen up before a big drive.
@@ -32,16 +31,20 @@
 CBT&A logbook training:
 - 90 minute lesson from $180
 - 120 minute lesson from $230
-- 10 lesson package (10 x 90 minutes) from $1700
-- Final drive including pre-drive from $330
+- 10 lesson package from $1700
+- The final drive from $450
 
 VORT test preparation:
-- Pre-VORT lesson (60 minutes) from $110
-- VORT mock test (60 minutes) from $110
-- 3 lesson pack (180 minutes) from $320
-- 5 lesson pack (300 minutes) from $525
-- VORT test in your own vehicle (60 minutes) from $250
-- VORT test in the instructor's vehicle (120 minutes) from $425
+- Pre-VORT lesson from $110
+- VORT mock test from $110
+- 3 lesson VORT pack from $320
+- 5 lesson VORT pack from $525
+- VORT test, instructor vehicle from $450
+
+The VORT is conducted only in the instructor's dual-control vehicle. There is no option to
+sit the VORT in a student's personal vehicle: the instructor's car has dual brake controls
+that a student's car does not, which removes the risk of a roadworthiness or tyre issue on
+test day. The instructor-vehicle price includes an hour of practice in it beforehand.
 
 ## Pages
 

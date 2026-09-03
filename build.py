@@ -88,6 +88,43 @@ WA_SVG = ('<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fi
 STARS = '<span class="stars" aria-hidden="true">★★★★★</span>'
 
 
+def chip_class(svc, default):
+    """Plate-colour chip for the two licence pathways; everything else keeps its
+    existing colour (cobalt/gold), so the plate code stays meaningful."""
+    plate = svc.get("plate")
+    if plate == "yellow":
+        return "chip chip--plate-yellow"
+    if plate == "red":
+        return "chip chip--plate-red"
+    return "chip %s" % default
+
+
+def glow_class(svc):
+    plate = svc.get("plate")
+    if plate == "yellow":
+        return "card-glow--yellow"
+    if plate == "red":
+        return "card-glow--red"
+    return "card-glow--cobalt"
+
+
+def marquee_band(svc):
+    """Full-bleed decorative keyword strip. aria-hidden: every keyword already
+    exists in real body copy elsewhere on the page, this is reinforcement only."""
+    words = svc["marquee"]
+    glyph = '<span class="marquee-dot" aria-hidden="true">&#9670;</span>'
+    track = glyph.join('<span>%s</span>' % e(w) for w in words)
+    plate = svc.get("plate")
+    band_class = "marquee--plate-yellow" if plate == "yellow" else \
+                 "marquee--plate-red" if plate == "red" else "marquee--cobalt"
+    return ("""<div class="marquee %(cls)s" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-set">%(track)s%(glyph)s</span>
+    <span class="marquee-set">%(track)s%(glyph)s</span>
+  </div>
+</div>""" % {"cls": band_class, "track": track, "glyph": glyph})
+
+
 # ---------------------------------------------------------------------------
 # Structured data
 # ---------------------------------------------------------------------------
@@ -204,6 +241,16 @@ def ld_faq(pairs):
 
 def ld_service(svc):
     group = C.PRICING[svc["price_group"]]
+    prices = [int(it["price"]) for it in group["items"]]
+    offers = [{
+        "@type": "Offer",
+        "name": it["name"],
+        "price": it["price"],
+        "priceCurrency": "AUD",
+        "availability": "https://schema.org/InStock",
+        "url": url("/pricing/"),
+        "description": it["desc"],
+    } for it in group["items"]]
     return {
         "@type": "Service",
         "@id": url("/services/%s/#service" % svc["slug"]),
@@ -213,15 +260,14 @@ def ld_service(svc):
         "provider": {"@id": url("/#business")},
         "areaServed": [{"@type": "City", "name": "Adelaide"}],
         "url": url("/services/%s/" % svc["slug"]),
-        "offers": [{
-            "@type": "Offer",
-            "name": it["name"],
-            "price": it["price"],
+        "offers": {
+            "@type": "AggregateOffer",
             "priceCurrency": "AUD",
-            "availability": "https://schema.org/InStock",
-            "url": url("/pricing/"),
-            "description": it["desc"],
-        } for it in group["items"]],
+            "lowPrice": str(min(prices)),
+            "highPrice": str(max(prices)),
+            "offerCount": len(offers),
+            "offers": offers,
+        },
     }
 
 
@@ -613,13 +659,15 @@ def page_home():
     schema = jsonld(ld_website(), ld_business(), ld_person(),
                     ld_faq(C.FAQS[:6]),
                     ld_breadcrumbs([("Home", "/")]))
-    svc_cards = "".join("""<article class="card card--dark reveal" data-delay="%(d)d">
+    svc_cards = "".join("""<article class="card card--dark card-glow %(glow)s reveal" data-delay="%(d)d" style="--glow-delay:%(gd).1fs">
   <span class="card-icon">%(icon)s</span>
-  <span class="chip chip--gold" style="align-self:flex-start;margin-bottom:12px">%(chip)s</span>
+  <span class="%(chipclass)s" style="align-self:flex-start;margin-bottom:12px">%(chip)s</span>
   <h3>%(nav)s</h3>
   <p>%(sum)s</p>
   <a class="card-link" href="/services/%(slug)s/">%(nav)s</a>
-</article>""" % {"d": i * 70, "icon": icon(s["icon"]), "chip": e(s["chip"]),
+</article>""" % {"d": i * 70, "gd": i * 0.6, "glow": glow_class(s),
+                 "chipclass": chip_class(s, "chip--gold"),
+                 "icon": icon(s["icon"]), "chip": e(s["chip"]),
                  "nav": e(s["nav"]), "sum": e(s["summary"]), "slug": s["slug"],
                  } for i, s in enumerate(C.SERVICES))
 
@@ -719,7 +767,6 @@ def page_home():
       areas. Not sure whether your suburb is covered? Send a message and ask.</p>
     </div>
     <div class="grid grid--2">%(areas)s</div>
-    <p class="price-note mt-24">%(southern)s</p>
   </div>
 </section>
 
@@ -742,7 +789,7 @@ def page_home():
         "ic_pin": icon("pin", 14), "tel": C.PHONE_TEL, "phone": e(C.PHONE_DISPLAY),
         "booking": booking_widget(), "services": svc_cards, "photos": instructor_photos(),
         "creds": creds, "reviews": review_cards(limit=6),
-        "gprofile": e(C.GOOGLE_PROFILE), "areas": areas, "southern": e(C.SOUTHERN_NOTE),
+        "gprofile": e(C.GOOGLE_PROFILE), "areas": areas,
         "faq": faq_block(C.FAQS[:6]),
         "cta": cta_band("Ready when you are",
                         "Four taps and Gopi has your pathway, transmission, suburb and "
@@ -782,7 +829,7 @@ def page_service(svc):
 <section class="page-hero">
   %(crumbs)s
   <div class="wrap">
-    <span class="chip chip--dark">%(chip)s</span>
+    <span class="%(chipclass)s">%(chip)s</span>
     <h1 style="margin-top:14px">%(h1)s</h1>
     <p class="lede">%(tag)s</p>
     <div class="btn-row mt-24">
@@ -791,7 +838,7 @@ def page_service(svc):
     </div>
   </div>
 </section>
-
+%(marquee)s
 <section class="section">
   <div class="wrap wrap--narrow prose">%(intro)s</div>
 </section>
@@ -846,6 +893,7 @@ def page_service(svc):
 </main>
 %(foot)s""" % {
         "head": header("/services/"), "crumbs": crumbs_html(crumbs), "chip": e(svc["chip"]),
+        "chipclass": chip_class(svc, "chip--dark"), "marquee": marquee_band(svc),
         "h1": e(svc["h1"]), "tag": e(svc["tagline"]), "wa_icon": WA_SVG,
         "ic": icon("phone", 18), "tel": C.PHONE_TEL, "phone": e(C.PHONE_DISPLAY),
         "nav": e(svc["nav"]), "intro": intro, "benefits": benefits, "steps": steps,
@@ -876,10 +924,11 @@ def page_services_index():
     })
     cards = "".join("""<article class="card reveal" data-delay="%(d)d">
   <span class="card-icon">%(icon)s</span>
-  <span class="chip chip--gold" style="align-self:flex-start;margin-bottom:12px">%(chip)s</span>
+  <span class="%(chipclass)s" style="align-self:flex-start;margin-bottom:12px">%(chip)s</span>
   <h3>%(nav)s</h3><p>%(sum)s</p>
   <a class="card-link" href="/services/%(slug)s/">%(nav)s</a>
-</article>""" % {"d": i * 60, "icon": icon(s["icon"]), "chip": e(s["chip"]),
+</article>""" % {"d": i * 60, "chipclass": chip_class(s, "chip--gold"),
+                 "icon": icon(s["icon"]), "chip": e(s["chip"]),
                  "nav": e(s["nav"]), "sum": e(s["summary"]), "slug": s["slug"]}
                     for i, s in enumerate(C.SERVICES))
 
@@ -1086,9 +1135,9 @@ def page_pricing():
          "and how many sessions you book all affect the final figure. You will get a firm number "
          "before anything is confirmed."),
         ("Do I pay for the VORT test itself separately?",
-         "The listed VORT test prices cover the assessment conducted by an examiner. If you use "
-         "the instructor's vehicle it includes an hour of practice beforehand. Government fees "
-         "for your licence are separate and paid to Service SA."),
+         "The listed VORT test price covers the assessment conducted by an examiner in the "
+         "instructor's dual-control vehicle, including an hour of practice beforehand. "
+         "Government fees for your licence are separate and paid to Service SA."),
     ]
     schema = jsonld(ld_business(), ld_faq(price_faqs), ld_breadcrumbs(crumbs))
 
@@ -1105,7 +1154,7 @@ def page_pricing():
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head pricing-group pricing-group--yellow">
       <p class="eyebrow">%(l1)s</p>
       <h2>Logbook lessons and sign-offs</h2>
       <p class="lede">%(n1)s</p>
@@ -1116,7 +1165,7 @@ def page_pricing():
 
 <section class="section section--tint">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head pricing-group pricing-group--red">
       <p class="eyebrow">%(l2)s</p>
       <h2>Test preparation and test day</h2>
       <p class="lede">%(n2)s</p>
@@ -1181,9 +1230,9 @@ def page_areas():
 <section class="section">
   <div class="wrap">
     <div class="section-head"><p class="eyebrow">Coverage</p>
-    <h2>Suburbs across four regions of Adelaide</h2></div>
+    <h2>Suburbs across five regions of Adelaide</h2></div>
     <div class="grid grid--2">%(blocks)s</div>
-  <p class="price-note mt-24">%(southern)s</p></div>
+  </div>
 </section>
 
 <section class="section section--tint">
@@ -1193,7 +1242,8 @@ def page_areas():
     lines and constant lane discipline. The north is wide arterials and long merges at higher
     speeds. The west has heavy freight on Port Road and a lot of unmarked intersections through
     the older street layouts. The east means gradients, hill starts and roundabout geometry that
-    catches people out.</p>
+    catches people out. The south, down to Marion, means Anzac Highway and Marion Road traffic,
+    the Glenelg tram line, and more roundabouts than anywhere else on the list.</p>
     <p>Learning in the area you will be assessed in is not a small advantage. It is most of the
     reason people fail on roads they have never seen before.</p>
     <p>If your suburb is not listed above, ask anyway. The lists are the common ones, not the
@@ -1203,7 +1253,6 @@ def page_areas():
 %(cta)s
 </main>
 %(foot)s""" % {"head": header(path), "crumbs": crumbs_html(crumbs), "blocks": blocks,
-               "southern": e(C.SOUTHERN_NOTE),
                "cta": cta_band("Is your suburb covered?",
                                "Send a message with where you are and you will get a straight "
                                "yes or no, not a runaround."),
@@ -1212,7 +1261,7 @@ def page_areas():
     return head({
         "path": path,
         "title": "Driving Lessons Near Me | Adelaide Suburbs Covered",
-        "meta": "Driving lessons across Adelaide CBD, northern, western and eastern suburbs. Pickup from home, work or uni, Salisbury through to Campbelltown.",
+        "meta": "Driving lessons across Adelaide CBD, northern, western, eastern and southern suburbs, from Salisbury to Marion. Pickup from home, work or uni.",
         "schema": schema}) + body
 
 
@@ -1222,7 +1271,14 @@ def page_faq():
     all_faqs = list(C.FAQS)
     for s in C.SERVICES:
         all_faqs.extend(s["faqs"])
-    schema = jsonld(ld_business(), ld_faq(all_faqs), ld_breadcrumbs(crumbs))
+    webpage = {
+        "@type": "WebPage",
+        "@id": url(path),
+        "url": url(path),
+        "name": "Frequently asked questions",
+        "speakable": {"@type": "SpeakableSpecification", "cssSelector": [".faq-body"]},
+    }
+    schema = jsonld(ld_business(), ld_faq(all_faqs), ld_breadcrumbs(crumbs), webpage)
 
     sections = '<div class="section-head"><h2>General</h2></div>' + faq_block(C.FAQS)
     for s in C.SERVICES:
@@ -1309,7 +1365,7 @@ def page_contact():
           <p><strong>%(hours)s.</strong> Early morning and evening slots are often available,
           which helps if you are working or studying full time.</p>
           <p class="mt-24">Serving Adelaide CBD and inner suburbs, northern suburbs, western
-          suburbs and eastern suburbs. Southern suburbs by arrangement.</p>
+          suburbs, eastern suburbs and southern suburbs down to Marion.</p>
         </div>
       </div>
       <div>%(booking)s</div>
@@ -1333,7 +1389,7 @@ def page_contact():
     return head({
         "path": path,
         "title": "Contact | Book a Driving Lesson in Adelaide",
-        "meta": "Book driving lessons in Adelaide with Gopi. WhatsApp, call or text 0423 457 296, seven days a week until 8pm. Four suburb regions covered.",
+        "meta": "Book driving lessons in Adelaide with Gopi. WhatsApp, call or text 0423 457 296, seven days a week until 8pm. Five suburb regions covered.",
         "schema": schema}) + body
 
 
@@ -1454,6 +1510,11 @@ Sitemap: %(site)s/sitemap.xml
 def llms_txt():
     svc = "\n".join("- [%s](%s): %s" % (s["nav"], url("/services/%s/" % s["slug"]), s["summary"])
                     for s in C.SERVICES)
+    areas_line = ", ".join(a["name"] for a in C.AREAS)
+    cbta_lines = "\n".join("- %s from $%s" % (it["name"], it["price"])
+                           for it in C.PRICING["cbta"]["items"])
+    vort_lines = "\n".join("- %s from $%s" % (it["name"], it["price"])
+                           for it in C.PRICING["vort"]["items"])
     return """# %(brand)s
 
 > A one-to-one driving school in Adelaide, South Australia, run by %(inst)s, who has been
@@ -1470,8 +1531,7 @@ def llms_txt():
 - Hours: %(hours)s
 - Rating: %(rating)s from %(count)d Google reviews
 - Location: Adelaide, South Australia. Service area business, no shopfront.
-- Areas served: Adelaide CBD and inner suburbs, northern suburbs, western suburbs, eastern
-  suburbs. Southern suburbs by arrangement.
+- Areas served: %(areas_line)s, from Salisbury in the north to Marion in the south.
 - Transmissions taught: automatic and manual
 - Booking: WhatsApp is the fastest route. There is no online payment or calendar system.
 
@@ -1482,18 +1542,15 @@ def llms_txt():
 ## Pricing (indicative, AUD, as at September 2026)
 
 CBT&A logbook training:
-- 90 minute lesson from $180
-- 120 minute lesson from $230
-- 10 lesson package (10 x 90 minutes) from $1700
-- Final drive including pre-drive from $330
+%(cbta_lines)s
 
 VORT test preparation:
-- Pre-VORT lesson (60 minutes) from $110
-- VORT mock test (60 minutes) from $110
-- 3 lesson pack (180 minutes) from $320
-- 5 lesson pack (300 minutes) from $525
-- VORT test in your own vehicle (60 minutes) from $250
-- VORT test in the instructor's vehicle (120 minutes) from $425
+%(vort_lines)s
+
+The VORT is conducted only in the instructor's dual-control vehicle. There is no option to
+sit the VORT in a student's personal vehicle: the instructor's car has dual brake controls
+that a student's car does not, which removes the risk of a roadworthiness or tyre issue on
+test day. The instructor-vehicle price includes an hour of practice in it beforehand.
 
 ## Pages
 
@@ -1528,7 +1585,8 @@ source is mylicence.sa.gov.au. Prices are indicative starting points, not fixed 
 """ % {"brand": C.BRAND, "inst": C.INSTRUCTOR, "founded": C.FOUNDED, "rating": C.RATING,
        "count": C.REVIEW_COUNT, "prev": C.LEGAL_PREVIOUS, "phone": C.PHONE_DISPLAY,
        "wa": C.WA_NUMBER, "email": C.EMAIL, "hours": C.HOURS_TEXT, "svc": svc,
-       "site": C.SITE_URL}
+       "site": C.SITE_URL, "areas_line": areas_line, "cbta_lines": cbta_lines,
+       "vort_lines": vort_lines}
 
 
 def llms_full_txt():
@@ -1552,7 +1610,6 @@ def llms_full_txt():
     for a in C.AREAS:
         out.append("\n### %s\n\n%s\n\nSuburbs: %s\n"
                    % (a["name"], a["blurb"], ", ".join(a["suburbs"])))
-    out.append("\n%s\n" % C.SOUTHERN_NOTE)
 
     out.append("\n## Reviews\n\n")
     out.extend('> "%s"\n>\n> — %s (5 stars, %s)\n\n' % (r["text"], r["name"], r["tag"])
