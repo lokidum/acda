@@ -11,9 +11,11 @@ Change a value here, run `python3 build.py`, redeploy.
 # Business constants
 # ---------------------------------------------------------------------------
 
-# TODO(loki): swap this for the live domain once it is registered, then re-run
-# build.py. It is used for canonicals, Open Graph, sitemap.xml and JSON-LD.
-SITE_URL = "https://adelaideconfidentdriving.com.au"
+# adelaideconfidentdriving.com.au was never registered (no DNS at all). The
+# site actually lives at adelaideconfidentdriving.com (Cloudflare + Vercel,
+# www redirects to the bare domain). Used for canonicals, Open Graph,
+# sitemap.xml and JSON-LD.
+SITE_URL = "https://adelaideconfidentdriving.com"
 
 BRAND = "Adelaide Confident Driving Academy"
 BRAND_SHORT = "Adelaide Confident Driving"
@@ -26,7 +28,7 @@ INSTRUCTOR_FULL = "Gopinathan"
 PHONE_DISPLAY = "0423 457 296"
 PHONE_TEL = "+61423457296"
 WA_NUMBER = "61423457296"
-EMAIL = "info@adelaideconfidentdriving.com.au"
+EMAIL = "info@adelaideconfidentdriving.com"
 
 RATING = "5.0"
 REVIEW_COUNT = 72

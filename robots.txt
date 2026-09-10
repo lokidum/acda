@@ -48,4 +48,4 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-Sitemap: https://adelaideconfidentdriving.com.au/sitemap.xml
+Sitemap: https://adelaideconfidentdriving.com/sitemap.xml
