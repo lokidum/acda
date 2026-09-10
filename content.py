@@ -640,8 +640,8 @@ PHOTOS = {
     "hero": {"file": "gopi-portrait.jpg", "alt": "The Adelaide Confident Driving Academy training vehicle, a liveried Suzuki Vitara",
              "caption_label": "The training vehicle", "caption_name": "Adelaide Confident Driving Academy"},
     "strip": [
-        {"file": "gopi-car-1.jpg", "alt": "The Adelaide Confident Driving Academy training vehicle with L plates, parked on an Adelaide street"},
         {"file": "gopi-lesson-1.jpg", "alt": "A student with the Adelaide Confident Driving Academy training vehicle after passing his CBT&A assessment"},
+        {"file": "gopi-student-pass-woman.jpg", "alt": "A student celebrating a first attempt pass, holding her Certificate of Competency"},
         {"file": "gopi-student-pass.jpg", "alt": "A student celebrating a first attempt pass, holding his Certificate of Competency"},
     ],
 }
