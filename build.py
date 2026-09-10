@@ -642,12 +642,14 @@ def instructor_photos():
   <div class="photo-frame">
     %(media)s
     <div class="photo-caption">
-      <span>Lead instructor</span>
-      <b>%(inst)s</b>
+      <span>%(cap_label)s</span>
+      <b>%(cap_name)s</b>
     </div>
   </div>
   <div class="photo-strip">%(strip)s</div>
-</div>""" % {"media": media, "inst": e(C.INSTRUCTOR), "strip": strip}
+</div>""" % {"media": media, "strip": strip,
+             "cap_label": e(hero.get("caption_label", "Lead instructor")),
+             "cap_name": e(hero.get("caption_name", C.INSTRUCTOR))}
 
 
 # ---------------------------------------------------------------------------
@@ -1197,7 +1199,7 @@ def page_pricing():
     return head({
         "path": path,
         "title": "Driving Lesson Prices Adelaide | CBT&A & VORT Costs",
-        "meta": "Driving lesson prices in Adelaide. CBT&A from $180 for 90 minutes, a 10 lesson package from $1700, and VORT prep from $110. Published openly.",
+        "meta": "Driving lesson prices in Adelaide. CBT&A from $180 for 90 minutes, a 10 lesson package from $1700, and VORT prep from $120. Published openly.",
         "schema": schema}) + body
 
 

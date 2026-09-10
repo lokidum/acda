@@ -485,10 +485,10 @@ PRICING = {
         "label": "VORT test preparation",
         "note": "Vehicle On Road Test drills, mock assessments and test day bookings.",
         "items": [
-            {"name": "Pre-VORT lesson", "dur": "60 minutes", "price": "110",
+            {"name": "Pre-VORT lesson", "dur": "60 minutes", "price": "120",
              "desc": "Targeted preparation for the test. The usual starting point.",
              "featured": False},
-            {"name": "VORT mock test", "dur": "60 minutes", "price": "110",
+            {"name": "VORT mock test", "dur": "60 minutes", "price": "120",
              "desc": "A full simulated assessment so you know whether you are actually ready.",
              "featured": True},
             {"name": "3 lesson VORT pack", "dur": "180 minutes total", "price": "320",
@@ -590,7 +590,7 @@ FAQS = [
     ("How much do driving lessons cost in Adelaide?",
      "Indicative pricing is published on the pricing page rather than hidden behind an "
      "enquiry form. CBT&A lessons start from $180 for 90 minutes and VORT preparation from "
-     "$110 for 60 minutes. Final pricing depends on your location and how many sessions you "
+     "$120 for 60 minutes. Final pricing depends on your location and how many sessions you "
      "need."),
     ("Do you help with the hazard perception test or the theory test?",
      "Those are done online through Service SA, but Gopi can point you at the right practice "
@@ -637,11 +637,12 @@ CREDENTIALS = [
 # Photo slots the client fills in later. Drop files at these paths and the
 # placeholders are replaced automatically on the next build.
 PHOTOS = {
-    "hero": {"file": "gopi-portrait.jpg", "alt": "Gopi, lead driving instructor at Adelaide Confident Driving Academy"},
+    "hero": {"file": "gopi-portrait.jpg", "alt": "The Adelaide Confident Driving Academy training vehicle, a liveried Suzuki Vitara",
+             "caption_label": "The training vehicle", "caption_name": "Adelaide Confident Driving Academy"},
     "strip": [
-        {"file": "gopi-car-1.jpg", "alt": "Gopi with the Adelaide Confident Driving Academy training vehicle"},
-        {"file": "gopi-lesson-1.jpg", "alt": "A driving lesson in progress on an Adelaide street"},
-        {"file": "gopi-student-pass.jpg", "alt": "A student celebrating a first attempt pass"},
+        {"file": "gopi-car-1.jpg", "alt": "The Adelaide Confident Driving Academy training vehicle with L plates, parked on an Adelaide street"},
+        {"file": "gopi-lesson-1.jpg", "alt": "A student with the Adelaide Confident Driving Academy training vehicle after passing his CBT&A assessment"},
+        {"file": "gopi-student-pass.jpg", "alt": "A student celebrating a first attempt pass, holding his Certificate of Competency"},
     ],
 }
 
