@@ -353,6 +353,11 @@ p  { text-wrap: pretty; }
 }
 @media (max-width: 940px) { .hero-grid { grid-template-columns: 1fr; } }
 
+.hero-credential {
+  display: inline-block; margin: 0 0 16px;
+  font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gold); border-top: 1px solid rgba(255,255,255,.18); padding-top: 12px;
+}
 .hero h1 { color: #fff; margin-bottom: 20px; }
 .hero h1 em { font-style: normal; color: var(--gold); }
 .hero .lede { color: #C6D0E4; font-size: clamp(1.04rem, 1.7vw, 1.22rem); margin-bottom: 30px; }

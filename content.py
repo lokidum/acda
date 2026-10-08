@@ -627,7 +627,7 @@ CREDENTIALS = [
     ("Teaching since 2006", "20 years of driver training in South Australia."),
     ("Automobile engineering background", "A mechanical understanding of the vehicle, not "
      "just the road rules."),
-    ("Authorised Examiner for CBT&A", "Able to assess and sign off the 30 competency tasks "
+    ("CBTA Certified Examiner", "Authorised to assess and sign off the 30 competency tasks "
      "directly."),
     ("5.0 stars from 72 Google reviews", "Not a single review below five stars at the time of "
      "writing."),

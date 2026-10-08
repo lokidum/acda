@@ -196,7 +196,7 @@ def ld_person():
         "@id": url("/about/#gopi"),
         "name": C.INSTRUCTOR,
         "alternateName": C.INSTRUCTOR_FULL,
-        "jobTitle": "Lead driving instructor and Authorised Examiner",
+        "jobTitle": "Lead driving instructor and CBTA Certified Examiner",
         "worksFor": {"@id": url("/#business")},
         "knowsAbout": ["CBT&A Competency Based Training and Assessment",
                        "Vehicle On Road Test (VORT)",
@@ -692,10 +692,12 @@ def page_home():
     <div class="hero-grid">
       <div>
         %(badge)s
+        <p class="hero-credential">Highly Accredited CBTA Certified Examiner in Adelaide</p>
         <h1>Drive with certainty. <em>Pass with confidence.</em></h1>
-        <p class="lede">One-to-one driving lessons across Adelaide with Gopi, teaching South
-        Australians since 2006. CBT&amp;A logbook training, VORT test preparation and overseas
-        licence conversion, taught calmly and at the pace you actually need.</p>
+        <p class="lede">One-to-one driving lessons across Adelaide with Gopi, a CBTA Certified
+        Examiner teaching South Australians since 2006. CBT&amp;A logbook training, VORT test
+        preparation and overseas licence conversion, taught calmly and at the pace you actually
+        need.</p>
         <div class="btn-row">
           <a class="btn btn--whatsapp pulse" href="#book">%(wa_icon)s Instant WhatsApp booking</a>
           <a class="btn btn--ghost" href="tel:%(tel)s">%(ic_phone)s Call %(phone)s</a>
@@ -801,8 +803,8 @@ def page_home():
 
     return head({
         "path": path,
-        "title": "Driving Lessons Adelaide | Rated 5.0 by 72 Students",
-        "meta": "One-to-one driving lessons across Adelaide with Gopi, instructing since 2006. CBT&A, VORT prep and overseas licence conversion. 5.0 stars, 72 reviews.",
+        "title": "Highly Accredited CBTA Certified Examiner in Adelaide",
+        "meta": "CBTA Certified Examiner Gopi teaches one-to-one driving lessons across Adelaide. CBT&A, VORT prep and licence conversion. 5.0 stars, 72 reviews.",
         "schema": schema,
     }) + body
 
@@ -1000,7 +1002,7 @@ def page_about():
   %(crumbs)s
   <div class="wrap">
     <h1>Meet Gopi</h1>
-    <p class="lede">Lead instructor, Authorised Examiner, and the reason seventy-two people
+    <p class="lede">Lead instructor, CBTA Certified Examiner, and the reason seventy-two people
     left five star reviews.</p>
   </div>
 </section>
@@ -1519,14 +1521,14 @@ def llms_txt():
                            for it in C.PRICING["vort"]["items"])
     return """# %(brand)s
 
-> A one-to-one driving school in Adelaide, South Australia, run by %(inst)s, who has been
-> teaching people to drive since %(founded)s. Rated %(rating)s stars from %(count)d Google
+> A one-to-one driving school in Adelaide, South Australia, run by %(inst)s, a highly
+> accredited CBTA Certified Examiner who has been teaching people to drive since %(founded)s. Rated %(rating)s stars from %(count)d Google
 > reviews. Formerly trading as %(prev)s.
 
 ## Key facts
 
 - Business: %(brand)s (previously %(prev)s)
-- Instructor: %(inst)s, teaching since %(founded)s, background in automobile engineering
+- Instructor: %(inst)s, CBTA Certified Examiner, teaching since %(founded)s, background in automobile engineering
 - Phone and SMS: %(phone)s
 - WhatsApp: https://wa.me/%(wa)s
 - Email: %(email)s
