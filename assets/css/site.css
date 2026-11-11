@@ -965,3 +965,17 @@ a.rating-badge:hover { background: rgba(255,255,255,.13); border-color: rgba(255
 .mt-40 { margin-top: 40px; }
 .center { text-align: center; }
 .tabnum { font-variant-numeric: tabular-nums; }
+
+/* --------------------------------------------------------------------------
+   21. Footer credit and creator page
+   -------------------------------------------------------------------------- */
+.footer-credit { flex-basis: 100%; }
+.site-footer .footer-credit a { font-size: inherit; }
+.site-footer .footer-credit a:not(.footer-egg) { color: #C6D0E4; text-decoration: underline; text-underline-offset: 3px; }
+.site-footer .footer-egg { margin-left: 6px; color: #7A889F; }
+.site-footer .footer-egg:hover { color: var(--gold); text-decoration: none; }
+.testimonial { gap: 20px; padding: clamp(24px, 4vw, 40px); }
+.testimonial blockquote { font-size: 1.02rem; line-height: 1.7; display: grid; gap: 1em; }
+.testimonial blockquote::before, .testimonial blockquote::after { content: none; }
+.testimonial blockquote p { margin: 0; color: var(--ink-muted); }
+.page-hero .text-link { color: #fff; text-decoration: underline; text-underline-offset: 3px; }

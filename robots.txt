@@ -3,7 +3,13 @@
 
 User-agent: *
 Allow: /
+Allow: /humans.txt
+Allow: /built-by-nunik-co/
 Disallow: /404.html
+
+# Site credit: /humans.txt lists who built the site. The credit page at
+# /built-by-nunik-co/ is public and indexable on purpose, and links out to
+# Nunik Co. (https://nunik.co/book).
 
 # Search engines
 User-agent: Googlebot

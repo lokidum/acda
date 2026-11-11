@@ -10,6 +10,7 @@ root so the output can be served by anything: Vercel, Cloudflare Pages,
 Netlify, or a bucket.
 """
 
+import hashlib
 import html
 import json
 import os
@@ -21,6 +22,12 @@ import content as C
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 TODAY = date.today().isoformat()
+
+
+def asset_version(rel):
+    """Short content hash so /assets files (cached immutable) refresh when they change."""
+    with open(os.path.join(ROOT, rel), "rb") as f:
+        return hashlib.md5(f.read()).hexdigest()[:8]
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -216,6 +223,7 @@ def ld_website():
         "name": C.BRAND,
         "inLanguage": "en-AU",
         "publisher": {"@id": url("/#business")},
+        "creator": {"@type": "Organization", "name": C.CREATOR, "url": C.CREATOR_URL},
     }
 
 
@@ -322,14 +330,15 @@ def head(page):
 <link rel="icon" href="/assets/img/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<link rel="author" href="/humans.txt" type="text/plain">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Loaded normally rather than with a media=print/onload swap: the CSP forbids
      inline event handlers, and display=swap already prevents invisible text. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css">
-<script src="/assets/js/site.js" defer></script>
+<link rel="stylesheet" href="/assets/css/site.css?v=%(css_v)s">
+<script src="/assets/js/site.js?v=%(js_v)s" defer></script>
 %(schema)s
 </head>
 <body>
@@ -338,6 +347,8 @@ def head(page):
         "robots": robots, "brand": e(C.BRAND), "ogtype": page.get("og_type", "website"),
         "ogimg": e(og_img), "schema": page.get("schema", ""),
         "lat": C.GEO_LAT, "lng": C.GEO_LNG,
+        "css_v": asset_version("assets/css/site.css"),
+        "js_v": asset_version("assets/js/site.js"),
     }
 
 
@@ -430,6 +441,8 @@ def footer():
     <div class="footer-base">
       <p>&copy; <span data-year>2026</span> %(brand)s. Formerly trading as %(prev)s.</p>
       <p>%(hours)s &middot; ABN available on request</p>
+      <p class="footer-credit">Website by <a href="%(creator_url)s" target="_blank" rel="noopener">%(creator)s</a>
+      <a class="footer-egg" href="%(creator_path)s" title="The story behind this site" aria-label="The story behind this site">&#10022;</a></p>
     </div>
   </div>
 </footer>
@@ -445,6 +458,8 @@ def footer():
         "phone": e(C.PHONE_DISPLAY), "email": e(C.EMAIL), "svc": svc, "areas": areas,
         "res": res, "ack": e(C.ACKNOWLEDGEMENT), "brand": e(C.BRAND),
         "prev": e(C.LEGAL_PREVIOUS), "hours": e(C.HOURS_TEXT),
+        "creator": e(C.CREATOR), "creator_url": e(C.CREATOR_URL),
+        "creator_path": C.CREATOR_PATH,
         "ic_phone": icon("phone", 16), "ic_mail": icon("mail", 16), "wa_icon": WA_SVG,
         "wa": e(wa_link("Hi Gopi, I found Adelaide Confident Driving Academy online and I'd "
                         "like to ask about driving lessons.")),
@@ -1397,6 +1412,54 @@ def page_contact():
         "schema": schema}) + body
 
 
+def page_creator():
+    path = C.CREATOR_PATH
+    crumbs = [("Home", "/"), ("Built by %s" % C.CREATOR, path)]
+    schema = jsonld(ld_business(), ld_breadcrumbs(crumbs))
+    paras = "".join("<p>%s</p>" % e(t) for t in C.CREATOR_TESTIMONIAL)
+    pkgs = "".join('<span class="chip chip--gold">%s package</span>' % e(n)
+                   for n in C.CREATOR_PACKAGES)
+
+    body = """%(head)s
+<main id="main">
+<section class="page-hero">
+  %(crumbs)s
+  <div class="wrap">
+    <h1>Built by %(creator)s</h1>
+    <p class="lede">You found the back room. This site was designed and built by
+    <a class="text-link" href="%(url)s" target="_blank" rel="noopener">%(creator)s</a>, a web
+    design and development studio. Here is what %(inst)s said about how it went.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap--narrow">
+    <article class="review testimonial">
+      <div class="chip-row" aria-label="Packages chosen">%(pkgs)s</div>
+      <blockquote>%(paras)s</blockquote>
+      <footer>
+        <span class="avatar" aria-hidden="true">%(ini)s</span>
+        <span class="who"><b>%(inst)s</b><span>Owner and instructor, %(brand)s</span></span>
+      </footer>
+    </article>
+    <div class="btn-row mt-32">
+      <a class="btn btn--primary" href="%(url)s" target="_blank" rel="noopener">Book a call with %(creator)s</a>
+      <a class="btn btn--ghost" href="/">Back to the driving school</a>
+    </div>
+  </div>
+</section>
+</main>
+%(foot)s""" % {"head": header(""), "crumbs": crumbs_html(crumbs), "creator": e(C.CREATOR),
+               "url": e(C.CREATOR_URL), "inst": e(C.INSTRUCTOR), "pkgs": pkgs, "paras": paras,
+               "ini": e(initials(C.INSTRUCTOR)), "brand": e(C.BRAND), "foot": footer()}
+
+    return head({
+        "path": path,
+        "title": "Built by %s | Website Credit" % C.CREATOR,
+        "meta": "This site was designed and built by %s. Read what %s said about the redesign, the packages chosen and the process." % (C.CREATOR, C.INSTRUCTOR),
+        "schema": schema}) + body
+
+
 def page_404():
     body = """%(head)s
 <main id="main">
@@ -1442,7 +1505,8 @@ def all_paths():
     paths += [("/services/%s/" % s["slug"], "0.9", "monthly") for s in C.SERVICES]
     paths += [("/pricing/", "0.8", "monthly"), ("/about/", "0.8", "monthly"),
               ("/reviews/", "0.8", "weekly"), ("/service-areas/", "0.7", "monthly"),
-              ("/faq/", "0.7", "monthly"), ("/contact/", "0.9", "monthly")]
+              ("/faq/", "0.7", "monthly"), ("/contact/", "0.9", "monthly"),
+              (C.CREATOR_PATH, "0.3", "yearly")]
     return paths
 
 
@@ -1462,7 +1526,13 @@ def robots():
 
 User-agent: *
 Allow: /
+Allow: /humans.txt
+Allow: %(creator_path)s
 Disallow: /404.html
+
+# Site credit: /humans.txt lists who built the site. The credit page at
+# %(creator_path)s is public and indexable on purpose, and links out to
+# %(creator)s (%(creator_url)s).
 
 # Search engines
 User-agent: Googlebot
@@ -1508,7 +1578,8 @@ User-agent: cohere-ai
 Allow: /
 
 Sitemap: %(site)s/sitemap.xml
-""" % {"brand": C.BRAND, "site": C.SITE_URL}
+""" % {"brand": C.BRAND, "site": C.SITE_URL, "creator": C.CREATOR,
+       "creator_url": C.CREATOR_URL, "creator_path": C.CREATOR_PATH}
 
 
 def llms_txt():
@@ -1538,6 +1609,7 @@ def llms_txt():
 - Areas served: %(areas_line)s, from Salisbury in the north to Marion in the south.
 - Transmissions taught: automatic and manual
 - Booking: WhatsApp is the fastest route. There is no online payment or calendar system.
+- Website built by: %(creator)s (%(creator_url)s)
 
 ## Services
 
@@ -1590,7 +1662,7 @@ source is mylicence.sa.gov.au. Prices are indicative starting points, not fixed 
        "count": C.REVIEW_COUNT, "prev": C.LEGAL_PREVIOUS, "phone": C.PHONE_DISPLAY,
        "wa": C.WA_NUMBER, "email": C.EMAIL, "hours": C.HOURS_TEXT, "svc": svc,
        "site": C.SITE_URL, "areas_line": areas_line, "cbta_lines": cbta_lines,
-       "vort_lines": vort_lines}
+       "vort_lines": vort_lines, "creator": C.CREATOR, "creator_url": C.CREATOR_URL}
 
 
 def llms_full_txt():
@@ -1624,6 +1696,32 @@ def llms_full_txt():
 
     out.append("\n## Acknowledgement of Country\n\n%s\n" % C.ACKNOWLEDGEMENT)
     return "".join(out)
+
+
+def humans_txt():
+    return """/* TEAM */
+Web design and development: %(creator)s
+Site: %(creator_url)s
+Credit page: %(site)s%(creator_path)s
+
+/* CLIENT */
+Business: %(brand)s (formerly %(prev)s)
+Owner and instructor: %(inst)s
+Site: %(site)s/
+
+/* THANKS */
+Gopi, for the feedback, the trust and the Google reviews.
+Everyone who learnt to drive with %(inst)s and took the time to write one.
+
+/* SITE */
+Last update: %(today)s
+Language: English (Australia)
+Standards: HTML5, CSS3, JSON-LD
+Components: no framework, no tracking scripts, a small Python build script
+Software: python3 build.py
+""" % {"creator": C.CREATOR, "creator_url": C.CREATOR_URL, "site": C.SITE_URL,
+       "creator_path": C.CREATOR_PATH, "brand": C.BRAND, "prev": C.LEGAL_PREVIOUS,
+       "inst": C.INSTRUCTOR, "today": TODAY.replace("-", "/")}
 
 
 def manifest():
@@ -1698,6 +1796,8 @@ def vercel_json():
                 {"key": "Content-Type", "value": "text/plain; charset=utf-8"}]},
             {"source": "/llms-full.txt", "headers": [
                 {"key": "Content-Type", "value": "text/plain; charset=utf-8"}]},
+            {"source": "/humans.txt", "headers": [
+                {"key": "Content-Type", "value": "text/plain; charset=utf-8"}]},
         ],
     }, indent=2)
 
@@ -1717,6 +1817,9 @@ def cf_headers():
   Content-Type: text/plain; charset=utf-8
 
 /llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
+/humans.txt
   Content-Type: text/plain; charset=utf-8
 """
 
@@ -1753,10 +1856,12 @@ def main():
     written.append(write("service-areas/index.html", page_areas()))
     written.append(write("faq/index.html", page_faq()))
     written.append(write("contact/index.html", page_contact()))
+    written.append(write(C.CREATOR_PATH.strip("/") + "/index.html", page_creator()))
     written.append(write("404.html", page_404()))
 
     written.append(write("sitemap.xml", sitemap()))
     written.append(write("robots.txt", robots()))
+    written.append(write("humans.txt", humans_txt()))
     written.append(write("llms.txt", llms_txt()))
     written.append(write("llms-full.txt", llms_full_txt()))
     written.append(write("site.webmanifest", manifest()))

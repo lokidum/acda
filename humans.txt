@@ -1,0 +1,20 @@
+/* TEAM */
+Web design and development: Nunik Co.
+Site: https://nunik.co/book
+Credit page: https://adelaideconfidentdriving.com/built-by-nunik-co/
+
+/* CLIENT */
+Business: Adelaide Confident Driving Academy (formerly Adelaide Driver Training Academy SA)
+Owner and instructor: Gopi
+Site: https://adelaideconfidentdriving.com/
+
+/* THANKS */
+Gopi, for the feedback, the trust and the Google reviews.
+Everyone who learnt to drive with Gopi and took the time to write one.
+
+/* SITE */
+Last update: 2026/11/12
+Language: English (Australia)
+Standards: HTML5, CSS3, JSON-LD
+Components: no framework, no tracking scripts, a small Python build script
+Software: python3 build.py

@@ -25,6 +25,24 @@ OLD_DOMAIN = "https://adelaidedrivertrainingacademysa.com.au"
 INSTRUCTOR = "Gopi"
 INSTRUCTOR_FULL = "Gopinathan"
 
+# The studio that built this site. Used for the footer credit, the easter egg
+# page at CREATOR_PATH, JSON-LD (creator), robots.txt and humans.txt.
+CREATOR = "Nunik Co."
+CREATOR_URL = "https://nunik.co/book"
+CREATOR_PATH = "/built-by-nunik-co/"
+CREATOR_PACKAGES = ["Artha", "Rasa"]
+CREATOR_TESTIMONIAL = [
+    "I’m so pleased with Nunik Co.’s build of my website. They did a phenomenal job and "
+    "revamped my old site, which was previously known as Adelaide Driver Training Academy SA. "
+    "The redesign made my website look beautiful.",
+    "We chose the Artha and Rasa packages offered by Nunik Co, which included web design and "
+    "brand elements. Loki delivered a new logo and new merchandising. He also threw in a "
+    "complimentary pen, which was really sweet. Also taught me how to use google business "
+    "account, run review pushes and make marketing content.",
+    "The process was smooth, and they were very open to feedback. I would highly recommend "
+    "them. If you need anything, always reach out to Nunik Co.",
+]
+
 PHONE_DISPLAY = "0423 457 296"
 PHONE_TEL = "+61423457296"
 WA_NUMBER = "61423457296"
